@@ -1,0 +1,6 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+The \b ros2_time package provides simple time and duration support for ROS 2.
+*/
