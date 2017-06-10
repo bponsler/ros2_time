@@ -8,6 +8,9 @@
 // project headers
 #include <ros2_time/duration.hpp>
 
+// builtin interface headers
+#include <builtin_interfaces/msg/time.hpp>
+
 
 namespace ros2_time
 {
@@ -31,16 +34,19 @@ public:
     Time& fromNSec(const long time);
 
     TimePoint getTimePoint() const;
+
+    builtin_interfaces::msg::Time toStamp() const;
   
     static Time now();
   
     bool operator<(const Time& rhs);
     Time operator+(const Duration& dur);
+    Time operator-(const Duration& dur);
     Time& operator+=(const Duration& dur);
     Duration operator-(const Time& rhs);
   
 protected:
-    void normalizeSecNSec(unsigned long& sec, unsigned long& nsec);
+    void normalizeSecNSec(unsigned long& sec, unsigned long& nsec) const;
 
     TimePoint m_time;
 };

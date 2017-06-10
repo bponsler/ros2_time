@@ -52,6 +52,20 @@ Time::getTimePoint() const
 {
     return m_time;
 }
+
+builtin_interfaces::msg::Time
+Time::toStamp() const
+{
+  unsigned long nanos = m_time.time_since_epoch().count();
+  unsigned long sec = nanos / 1000000000;
+  unsigned long nsec = nanos % 1000000000;
+  normalizeSecNSec(sec, nsec);
+
+  builtin_interfaces::msg::Time stamp;
+  stamp.sec = sec;
+  stamp.nanosec = nsec;
+  return stamp;
+}
   
 Time
 Time::now()
@@ -74,6 +88,17 @@ Time::operator+(const Duration& dur)
     Time newTime;
     newTime.m_time = this->m_time;
     newTime.m_time += nanos;
+    return newTime;
+}
+
+Time
+Time::operator-(const Duration& dur)
+{
+    auto nanos = std::chrono::nanoseconds(dur.toNSec());
+
+    Time newTime;
+    newTime.m_time = this->m_time;
+    newTime.m_time -= nanos;
     return newTime;
 }
   
@@ -99,7 +124,7 @@ Time::operator-(const Time& rhs)
 }
   
 void
-Time::normalizeSecNSec(unsigned long& sec, unsigned long& nsec)
+Time::normalizeSecNSec(unsigned long& sec, unsigned long& nsec) const
 {
     unsigned long nsecPart = nsec % 1000000000UL;
     unsigned long secPart = nsec / 1000000000UL;
