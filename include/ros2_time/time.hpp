@@ -24,6 +24,7 @@ class Time
 {
 public:
     Time();
+    Time(const TimePoint& tp);
 
     bool isValid() const;
   
@@ -36,9 +37,13 @@ public:
     TimePoint getTimePoint() const;
 
     builtin_interfaces::msg::Time toStamp() const;
+    ros2_time::Time fromStamp(const builtin_interfaces::msg::Time& time);
   
     static Time now();
-  
+
+    bool operator==(const Time& rhs);
+    bool operator!=(const Time& rhs);
+    bool operator>(const Time& rhs);
     bool operator<(const Time& rhs);
     Time operator+(const Duration& dur);
     Time operator-(const Duration& dur);

@@ -10,6 +10,12 @@ Time::Time()
     m_time()
 {
 }
+
+Time::Time(const TimePoint& tp)
+  :
+  m_time(tp)
+{
+}
   
 bool
 Time::isValid() const
@@ -66,12 +72,40 @@ Time::toStamp() const
   stamp.nanosec = nsec;
   return stamp;
 }
+
+ros2_time::Time
+Time::fromStamp(const builtin_interfaces::msg::Time& time)
+{
+  unsigned long sec = time.sec;
+  unsigned long nsec = time.nanosec;
+  normalizeSecNSec(sec, nsec);
+  this->m_time = TimePoint(std::chrono::seconds(sec) + std::chrono::nanoseconds(nsec));
+  return *this;
+}
   
 Time
 Time::now()
 {
     Time t;
     t.m_time = std::chrono::steady_clock::now();
+}
+
+bool
+Time::operator==(const Time& rhs)
+{
+    return m_time == rhs.m_time;
+}
+
+bool
+Time::operator!=(const Time& rhs)
+{
+    return m_time != rhs.m_time;
+}
+  
+bool
+Time::operator>(const Time& rhs)
+{
+    return m_time > rhs.m_time;
 }
 
 bool
