@@ -16,6 +16,11 @@ Time::Time(const TimePoint& tp)
   m_time(tp)
 {
 }
+
+Time::Time(const builtin_interfaces::msg::Time& time)
+{
+  fromStamp(time);
+}
   
 bool
 Time::isValid() const
@@ -73,7 +78,7 @@ Time::toStamp() const
   return stamp;
 }
 
-ros2_time::Time
+ros2_time::Time&
 Time::fromStamp(const builtin_interfaces::msg::Time& time)
 {
   unsigned long sec = time.sec;
@@ -155,6 +160,12 @@ Time::operator-(const Time& rhs)
     return Duration(
       (int32_t)this->toSec() - (int32_t)rhs.toSec(),
       nsec1 - nsec2);
+}
+
+void
+Time::operator=(const builtin_interfaces::msg::Time& time)
+{
+  fromStamp(time);
 }
   
 void

@@ -6,7 +6,7 @@
     Time facilities for ROS 2.
   </description>
   <maintainer email="ponsler@gmail.com">Brett Ponsler</maintainer>
-  <license>Apache iLicense 2.0</license>
+  <license>Apache License 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

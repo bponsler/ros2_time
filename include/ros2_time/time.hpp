@@ -25,6 +25,7 @@ class Time
 public:
     Time();
     Time(const TimePoint& tp);
+    Time(const builtin_interfaces::msg::Time& time);
 
     bool isValid() const;
   
@@ -37,7 +38,7 @@ public:
     TimePoint getTimePoint() const;
 
     builtin_interfaces::msg::Time toStamp() const;
-    ros2_time::Time fromStamp(const builtin_interfaces::msg::Time& time);
+    ros2_time::Time& fromStamp(const builtin_interfaces::msg::Time& time);
   
     static Time now();
 
@@ -49,6 +50,7 @@ public:
     Time operator-(const Duration& dur);
     Time& operator+=(const Duration& dur);
     Duration operator-(const Time& rhs);
+    void operator=(const builtin_interfaces::msg::Time& time);
   
 protected:
     void normalizeSecNSec(unsigned long& sec, unsigned long& nsec) const;
@@ -56,6 +58,12 @@ protected:
     TimePoint m_time;
 };
 
+
+// For now: provide WallTime and WallDuration as clones of normal time
+// eventually support custom implementation
+typedef Time WallTime;
+typedef Duration WallDuration;
+  
 
 }  // end of the ros2_time namespace
 
