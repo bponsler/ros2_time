@@ -21,7 +21,7 @@ public:
     double toSec() const;
     int64_t toNSec() const;
   
-    Duration& fromSec(const unsigned long sec);
+    Duration& fromSec(const double sec);
     Duration& fromNSec(const unsigned long nsec);
 
     bool sleep() const;

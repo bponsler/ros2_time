@@ -55,10 +55,10 @@ Duration::toNSec() const
 }
 
 Duration&
-Duration::fromSec(const unsigned long sec)
+Duration::fromSec(const double sec)
 {
     this->sec = (int32_t)trunc(sec);
-    this->nsec = (int32_t)((sec - (double)sec)*1000000000);
+    this->nsec = (int32_t)((sec - (double)this->sec)*1000000000);
     normalizeSecNSecSigned(this->sec, this->nsec);
     return *this;
 }
