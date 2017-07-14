@@ -28,6 +28,7 @@ public:
     Time(const builtin_interfaces::msg::Time& time);
 
     bool isValid() const;
+    bool isZero() const;
   
     int32_t toSec() const;
     uint64_t toNSec() const;

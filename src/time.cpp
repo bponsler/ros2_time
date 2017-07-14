@@ -21,13 +21,19 @@ Time::Time(const builtin_interfaces::msg::Time& time)
 {
   fromStamp(time);
 }
-  
+
 bool
 Time::isValid() const
 {
     return (m_time.time_since_epoch().count() > 0);
 }
   
+bool
+Time::isZero() const
+{
+    return (m_time.time_since_epoch().count() == 0);
+}
+
 int32_t
 Time::toSec() const
 {
