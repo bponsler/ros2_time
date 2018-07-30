@@ -68,6 +68,6 @@ int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
     rclcpp::init(argc, argv);
-    auto node = rclcpp::node::Node::make_shared("time_tests");
+    auto node = rclcpp::Node::make_shared("time_tests");
     return RUN_ALL_TESTS();
 }
